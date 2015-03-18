@@ -18,7 +18,35 @@
     $app->get("/", function() use ($app) {
         return $app['twig']->render('index.twig', array('cuisines' => Cuisine::getAll()));
     });
-    
+
+
+    $app->post("/cuisines", function() use ($app) {
+        $cuisine = new Cuisine($_POST['type']);
+        $cuisine->save();
+        return $app['twig']->render('index.twig', array('cuisines' => Cuisine::getAll()));
+    });
+
+    $app->post("/cuisines_added", function() use ($app) {
+
+    });
+
+    $app->post("/delete_cuisines", function() use ($app) {
+    });
+
+    $app->post("/restaurant", function() use ($app) {
+    });
+
+    $app->post("/restaurant_added", function() use ($app) {
+    });
+
+    $app->post("/delete_restaurants", function() use ($app) {
+    });
+
+    $app->post("/delete_restaurant", function() use ($app) {
+    });
+
     return $app;
 
  ?>
+
+-ish

@@ -126,6 +126,54 @@
             $result = Restaurant::getAll();
             $this->assertEquals([], $result);
         }
+
+        function testUpdateName()
+        {
+            //Arrange
+            $type = "Armenian";
+            $id = null;
+            $test_cuisine = new Cuisine($type, $id);
+            $test_cuisine->save();
+
+            $cuisine_id = $test_cuisine->getId();
+            $name = "fries";
+
+            $test_restaurant = new Restaurant($name, $id, $cuisine_id);
+            $test_restaurant->save();
+
+            $new_name = "pizza";
+
+            //Act
+            $test_restaurant->update($new_name);
+
+            //Assert
+            $this->assertEquals("pizza", $test_restaurant->getName());
+        }
+
+        function testDeleteSingle()
+        {
+            //Arrange
+            $type = "Polish";
+            $id = null;
+            $test_cuisine = new Cuisine($type, $id);
+            $test_cuisine->save();
+
+            $name = "Bratwurst Hut";
+            $cuisine_id = $test_cuisine->getId();
+            $test_restaurant = new Restaurant($name, $id, $cuisine_id);
+            $test_restaurant->save();
+
+            $name2 = "Sausage Hut";
+            $test_restaurant2 = new Restaurant($name2, $id, $cuisine_id);
+            $test_restaurant2->save();
+
+            //Act
+            $test_restaurant->deleteSingle();
+            var_dump(Restaurant::getAll());
+
+            //Assert
+            $this->assertEquals([$test_restaurant2], Restaurant::getAll());
+        }
     }
 
 ?>

@@ -60,6 +60,12 @@
             $GLOBALS['DB']->exec("UPDATE cuisine SET type = '{$new_type}' WHERE id = {$this->getId()};");
             $this->setType($new_type);
         }
+
+        function delete()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM cuisine WHERE id = {$this->getId()};");
+            $GLOBALS['DB']->exec("DELETE FROM restaurants WHERE cuisine_id = {$this->getId()};");
+        }
     }
 
 

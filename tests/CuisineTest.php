@@ -128,20 +128,20 @@
             $this->assertEquals("Icelandic", $test_cuisine->getType());
         }
 
-        // function testDeleteCuisineRestaurant()
-        // {
-        //     //arrange
-        //     $type = "Arabic";
-        //     $id = null;
-        //     $test_cuisine = new Cuisine($type, $id);
-        //     $test_cuisine->save();
-        //
-        //     //act
-        //     $test_cuisine->delete();
-        //
-        //     //assert
-        //     $this->assertEquals([], Restaurant::getAll());
-        // }
+        function testDeleteCuisineRestaurant()
+        {
+            //arrange
+            $type = "Arabic";
+            $id = null;
+            $test_cuisine = new Cuisine($type, $id);
+            $test_cuisine->save();
+
+            //act
+            $test_cuisine->delete();
+
+            //assert
+            $this->assertEquals([], Restaurant::getAll());
+        }
     }
 
  ?>

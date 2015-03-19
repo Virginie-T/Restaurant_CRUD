@@ -5,12 +5,16 @@
             private $name;
             private $id;
             private $cuisine_id;
+            private $rating;
+            private $review;
 
-            function __construct($name, $id, $cuisine_id)
+            function __construct($name, $id, $cuisine_id, $rating, $review)
             {
                 $this->name = $name;
                 $this->id = $id;
                 $this->cuisine_id = $cuisine_id;
+                $this->rating = $rating;
+                $this->review = $review;
             }
 
             function getName()
@@ -43,9 +47,29 @@
                 $this->cuisine_id = (int) $new_cuisine_id;
             }
 
+            function getRating()
+            {
+                return $this->rating;
+            }
+
+            function setRating($new_rating)
+            {
+                return $this->rating = (int) $new_rating;
+            }
+
+            function getReview()
+            {
+                return $this->review;
+            }
+
+            function setReview($new_review)
+            {
+                return $this->review = (string) $new_review;
+            }
+
             function save()
             {
-                $statement = $GLOBALS['DB']->query("INSERT INTO restaurants (name, cuisine_id) VALUES ('{$this->getName()}', {$this->getCuisineId()}) RETURNING id;");
+                $statement = $GLOBALS['DB']->query("INSERT INTO restaurants (name, cuisine_id, rating, review) VALUES ('{$this->getName()}', {$this->getCuisineId()}, {$this->getRating()}, '{$this->getReview()}') RETURNING id;");
                 $result = $statement->fetch(PDO::FETCH_ASSOC);
                 $this->setId($result['id']);
             }
@@ -58,7 +82,9 @@
                     $name = $restaurant['name'];
                     $id = $restaurant['id'];
                     $cuisine_id = $restaurant['cuisine_id'];
-                    $new_restaurant = new Restaurant($name, $id, $cuisine_id);
+                    $rating = $restaurant['rating'];
+                    $review = $restaurant['review'];
+                    $new_restaurant = new Restaurant($name, $id, $cuisine_id, $rating, $review);
                     array_push($restaurants, $new_restaurant);
                 }
                 return $restaurants;

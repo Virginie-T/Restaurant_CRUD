@@ -11,7 +11,19 @@
             <form action="/restaurant" method="post">
                 <label for="name">Restaurant name:</label>
                 <input id="name" name="name" type="text">
-                <input value="{{ cuisine.getId }}" id="cuisine_id" name="cuisine_id" type="hidden">
+                <input value="{{ cuisine.getId }}" id="cuisine_id" name="cuisine_id" type="hidden"><br>
+
+                <label for="rating">Restaurant rating:</label>
+                <select id="rating" name="rating">
+                    <option value="1">1 star</option>
+                    <option value="2">2 stars</option>
+                    <option value="3">3 stars</option>
+                    <option value="4">4 stars</option>
+                    <option value="5">5 stars</option>
+                </select><br>
+                <label for='review'>Review :</label><br>
+                <textarea name='review' id='review' rows="4" cols="50" placeholder="Enter review here" type="text"></textarea><br>
+
                 <button type="submit">Add restaurant</button>
             </form>
 
@@ -23,14 +35,18 @@
                 </p>
                 <ul>
                     {% for restaurant in restaurants %}
-                    <li>{{ restaurant.getName }}
+
+                    <p><strong>{{ restaurant.getName }}</strong></p>
+                    <li>{{ restaurant.getRating }} stars</li>
+                    <li>{{ restaurant.getReview }}</li>
+
                         <form action="/cuisines/{{ cuisine.getId }}/deleteSingle" method="post">
                             <!-- <input value="" id="cuisine_id" name="cuisine_id" type="hidden"> -->
-                            <input name="rest_id" id="rest_id" type="hidden" value=39>
+                            <input value='{{ restaurant.getId }}' name="rest_id" id="rest_id" type="hidden">
                             <input name="_method" type="hidden" value="delete">
                             <button type='submit'>Delete</button>
                         </form>
-                    </li>
+
                     {% endfor %}
                 </ul>
             {% else %}

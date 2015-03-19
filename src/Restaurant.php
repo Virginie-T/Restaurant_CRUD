@@ -66,7 +66,7 @@
 
             static function deleteAll()
             {
-                $GLOBALS['DB']->exec("DELETE FROM restaurants WHERE cuisine_id = {$this->getCuisineId()};");
+                $GLOBALS['DB']->exec("DELETE FROM restaurants *;");
             }
 
             function deleteRestaurants()
@@ -83,6 +83,19 @@
             function deleteSingle()
             {
                 $GLOBALS['DB']->exec("DELETE FROM restaurants WHERE id = {$this->getId()};");
+            }
+
+            static function find($cuisine_id)
+            {
+                $found_restaurant = null;
+                $restaurants = Restaurant::getAll();
+                foreach($restaurants as $restaurant) {
+                    $restaurant_id = $restaurant->getId();
+                    if ($restaurant_id == $cuisine_id) {
+                        $found_restaurant = $restaurant;
+                    }
+                  }
+                    return $found_restaurant;
             }
 
     }

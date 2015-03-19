@@ -23,14 +23,21 @@
                 </p>
                 <ul>
                     {% for restaurant in restaurants %}
-                    <li>{{ restaurant.getName }}<button type="submit">Delete</button></li>
+                    <li>{{ restaurant.getName }}
+                        <form action="/cuisines/{{ cuisine.getId }}/deleteSingle" method="post">
+                            <!-- <input value="" id="cuisine_id" name="cuisine_id" type="hidden"> -->
+                            <input name="rest_id" id="rest_id" type="hidden" value=39>
+                            <input name="_method" type="hidden" value="delete">
+                            <button type='submit'>Delete</button>
+                        </form>
+                    </li>
                     {% endfor %}
                 </ul>
             {% else %}
                 <p>No one has added any restaurants.</p>
             {% endif %}
 
-            <form action="/cuisines/{{ cuisine.getId }}/deleterestaurants" method="post">
+            <form action="/cuisines/{{ cuisine.getId }}/deleteRestaurants" method="post">
                 <!-- <input value="" id="cuisine_id" name="cuisine_id" type="hidden"> -->
                 <input name="_method" type="hidden" value="delete">
                 <button type='submit'>Delete All Restaurants</button>

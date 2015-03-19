@@ -59,21 +59,36 @@
         return $app['twig']->render('cuisines_id.twig', array('cuisine' => $cuisine, 'restaurants' => $cuisine->getRestaurants()));
     });
 
-
-    $app->delete("/cuisines/{id}/deleterestaurants", function($id) use ($app) {
-//        $cuisine_id = $_GET['cuisine_id'];
+    $app->delete("/cuisines/{id}/deleteRestaurants", function($id) use ($app) {
         $cuisine = Cuisine::find($id);
         $restaurant = $cuisine->getRestaurants();
         $single_restaurant = $restaurant[0];
         $single_restaurant->deleteRestaurants();
 
-        // $cuisine_id = $_GET['cuisine_id'];
-        //
-        // $cuisine = Cuisine::find($cuisine_id);
         return $app['twig']->render('cuisines_id.twig', array('cuisine' => $cuisine, 'restaurants' => $cuisine->getRestaurants()));
     });
 
-    $app->post("/delete_restaurant", function() use ($app) {
+    $app->delete("/cuisines/{id}/deleteSingle", function($id) use ($app) {
+        // $restaurant = Restaurant::find($id);
+
+
+        $rest_name = $_POST['rest_id'];
+
+        var_dump($rest_name);
+        $cuisine = Cuisine::find($id);
+
+        $restaurants = $cuisine->getRestaurants();
+        $that_restaurant = null;
+        foreach ($restaurants as $restaurant) {
+            if ($restaurant->getId() == $rest_name) {
+                $that_restaurant = $restaurant;
+            }
+
+        }
+        // $restaurant->getId();
+        $that_restaurant->deleteSingle();
+
+        return $app['twig']->render('cuisines_id.twig', array('cuisine' => $cuisine, 'restaurants' => $cuisine->getRestaurants()));
     });
 
     return $app;

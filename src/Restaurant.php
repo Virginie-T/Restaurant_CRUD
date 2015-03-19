@@ -66,7 +66,12 @@
 
             static function deleteAll()
             {
-                $GLOBALS['DB']->exec("DELETE FROM restaurants *;");
+                $GLOBALS['DB']->exec("DELETE FROM restaurants WHERE cuisine_id = {$this->getCuisineId()};");
+            }
+
+            function deleteRestaurants()
+            {
+                $GLOBALS['DB']->exec("DELETE FROM restaurants WHERE cuisine_id = {$this->getCuisineId()};");
             }
 
             function update($new_name)

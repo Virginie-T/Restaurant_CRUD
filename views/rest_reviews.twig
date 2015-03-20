@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'>
+        <title></title>
+    </head>
+    <body>
+        <div class="container">
+        {% if reviews is not empty %}
+            <p>Here are the reviews for {{ restaurant.getName }}:</p>
+            <ul>
+                {% for review in reviews %}
+                    <li>{{ review.getReview }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No one has added a review yet.</p>
+        {% endif %}
+
+        <a href="/"><button type="submit" class="btn btn-info">Return</button></a>
+    </div>
+    </body>
+</html>

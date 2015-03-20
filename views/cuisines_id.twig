@@ -21,10 +21,12 @@
                     <option value="4">4 stars</option>
                     <option value="5">5 stars</option>
                 </select><br>
-                <label for='review'>Review :</label><br>
-                <textarea name='review' id='review' rows="4" cols="50" placeholder="Enter review here" type="text"></textarea><br>
+                <label for='entry'>Review :</label><br>
+                <input value="{{ restaurant.getId }}" id="rest_id" name="rest_id" type="hidden"><br>
 
-                <button type="submit">Add restaurant</button>
+                <textarea name='entry' id='entry' rows="4" cols="50" placeholder="Enter review here" type="text"></textarea><br>
+
+                <button type="submit" class='btn btn-success'>Add restaurant</button>
             </form>
 
 
@@ -36,15 +38,17 @@
                 <ul>
                     {% for restaurant in restaurants %}
 
-                    <p><strong>{{ restaurant.getName }}</strong></p>
+                    <p style="font-size: 20px; margin-bottom: -2px"><em>{{ restaurant.getName }}</em></p>
                     <li>{{ restaurant.getRating }} stars</li>
-                    <li>{{ restaurant.getReview }}</li>
 
                         <form action="/cuisines/{{ cuisine.getId }}/deleteSingle" method="post">
                             <!-- <input value="" id="cuisine_id" name="cuisine_id" type="hidden"> -->
                             <input value='{{ restaurant.getId }}' name="rest_id" id="rest_id" type="hidden">
                             <input name="_method" type="hidden" value="delete">
-                            <button type='submit'>Delete</button>
+                            <button type='submit' class="btn btn-danger">Delete</button>
+                        </form>
+                        <form action="/reviews">
+                            <button type="submit" class="btn btn-info">View Reviews</button>
                         </form>
 
                     {% endfor %}
@@ -56,12 +60,13 @@
             <form action="/cuisines/{{ cuisine.getId }}/deleteRestaurants" method="post">
                 <!-- <input value="" id="cuisine_id" name="cuisine_id" type="hidden"> -->
                 <input name="_method" type="hidden" value="delete">
-                <button type='submit'>Delete All Restaurants</button>
+                <button type='submit' class="btn btn-danger">Delete All Restaurants</button>
             </form>
 
 
-            <p><a href="/cuisines/{{ cuisine.getId }}/edit">Edit this cuisine type</a></p>
-            <p><a href="/">Home</a></p>
+            <a href="/cuisines/{{ cuisine.getId }}/edit"><button type="submit" class='btn btn-success'>Edit this cuisine type</button></a>
+            <br>
+            <a href="/"><button type="submit" class="btn btn-info">Home</button></a>
 
         </div>
     </body>

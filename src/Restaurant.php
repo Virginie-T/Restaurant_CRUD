@@ -6,15 +6,14 @@
             private $id;
             private $cuisine_id;
             private $rating;
-            private $review;
 
-            function __construct($name, $id, $cuisine_id, $rating, $review)
+
+            function __construct($name, $id, $cuisine_id, $rating)
             {
                 $this->name = $name;
                 $this->id = $id;
                 $this->cuisine_id = $cuisine_id;
                 $this->rating = $rating;
-                $this->review = $review;
             }
 
             function getName()
@@ -57,19 +56,9 @@
                 return $this->rating = (int) $new_rating;
             }
 
-            function getReview()
-            {
-                return $this->review;
-            }
-
-            function setReview($new_review)
-            {
-                return $this->review = (string) $new_review;
-            }
-
             function save()
             {
-                $statement = $GLOBALS['DB']->query("INSERT INTO restaurants (name, cuisine_id, rating, review) VALUES ('{$this->getName()}', {$this->getCuisineId()}, {$this->getRating()}, '{$this->getReview()}') RETURNING id;");
+                $statement = $GLOBALS['DB']->query("INSERT INTO restaurants (name, cuisine_id, rating) VALUES ('{$this->getName()}', {$this->getCuisineId()}, {$this->getRating()}) RETURNING id;");
                 $result = $statement->fetch(PDO::FETCH_ASSOC);
                 $this->setId($result['id']);
             }
@@ -83,8 +72,7 @@
                     $id = $restaurant['id'];
                     $cuisine_id = $restaurant['cuisine_id'];
                     $rating = $restaurant['rating'];
-                    $review = $restaurant['review'];
-                    $new_restaurant = new Restaurant($name, $id, $cuisine_id, $rating, $review);
+                    $new_restaurant = new Restaurant($name, $id, $cuisine_id, $rating);
                     array_push($restaurants, $new_restaurant);
                 }
                 return $restaurants;

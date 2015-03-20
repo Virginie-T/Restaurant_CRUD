@@ -5,13 +5,13 @@
     </head>
     <body>
         <div class='container'>
-            <h1>Add a type of cuisine:</h1>
+            <h1>Add a type of cuisine :</h1>
             <!-- form stuff -->
             <form action="/cuisines" method="post">
-                <label for="type">Cuisine Type:</label>
+                <label for="type">Cuisine Type :</label>
                 <input id="type" name="type" type="text">
 
-                <button type="submit">Add cuisine</button>
+                <button type="submit" class='btn btn-default'>Add cuisine</button>
             </form>
 
             <!-- twig stuff -->
@@ -19,7 +19,7 @@
                 <p>Here are available types of cuisines in your city:</p>
                 <ul>
                     {% for cuisine in cuisines %}
-                        <li><a href="/cuisines/{{ cuisine.getId }}">{{ cuisine.getType }}</a></li>
+                        <li><strong><a href="/cuisines/{{ cuisine.getId }}">{{ cuisine.getType }}</a></strong></li>
                     {% endfor %}
                 </ul>
             {% else %}
@@ -27,7 +27,7 @@
             {% endif %}
 
             <form action="/delete_cuisines" method="post">
-                <button type="submit">Delete cuisines</button>
+                <button type="submit" class='btn btn-danger'>Delete cuisines</button>
             </form>
         </div>
     </body>

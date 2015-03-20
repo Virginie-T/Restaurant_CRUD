@@ -3,6 +3,7 @@
     require_once __DIR__."/../vendor/autoload.php";
     require_once __DIR__."/../src/Restaurant.php";
     require_once __DIR__."/../src/Cuisine.php";
+    require_once __DIR__."/../src/Review.php";
 
     $app = new Silex\Application();
     $app['debug'] = true;
@@ -92,6 +93,11 @@
         $cuisine->delete();
 
         return $app['twig']->render('index.twig', array('cuisines' => Cuisine::getAll()));
+    });
+
+    $app->get("/reviews", function() use($app) {
+
+        return $app['twig']->render('rest_reviews.twig', array('reviews' => Review::getAll()));
     });
 
     return $app;
